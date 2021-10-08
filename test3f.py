@@ -23,16 +23,19 @@ def main():
         py=100        
 
         #マップ表示
-        for gy in range(3):
-          for rt in range(6):
-            if map[gy][rt]==0:
-              screen.blit(gNO ,(rt*50+200,gy*50+100)) 
-            elif map[gy][rt]==1:
-              screen.blit(gBUSH ,(rt*50+200,gy*50+100)) 
-            elif map[gy][rt]==2:
-              screen.blit(gUMI ,(rt*50+200,gy*50+100)) 
-            elif map[gy][rt]==3:
-              screen.blit(gYAMA ,(rt*50+200,gy*50+100)) 
+        for mgyo in map:#１行分描画
+            px=100
+            for a1 in mgyo:#１マス分描画
+                if a1==0:
+                  screen.blit(gNO ,(px,py)) 
+                elif a1==1:
+                  screen.blit(gBUSH ,(px,py)) 
+                elif a1==2:
+                  screen.blit(gUMI ,(px,py)) 
+                elif a1==3:
+                  screen.blit(gYAMA ,(px,py)) 
+                px +=50
+            py +=50
 
         #キャラ表示
         mx=msx*50+100
@@ -63,6 +66,10 @@ def main():
                 elif event.key == K_LEFT:
                     msx -= 1
 
+                #行けない場所がある場合（はみ出し、海、山） 戻す 
+                if (msx > 5 or msx <0 or msy <0 or msy >2) or map[msy][msx]==2 or map[msy][msx]==3:#戻す
+                    msx = ox
+                    msy = oy 
         if isBreak:
             break
     print("end")      
