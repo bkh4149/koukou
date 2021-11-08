@@ -5,7 +5,9 @@ def main():
     pygame.init()                                 # Pygameの初期化
     screen = pygame.display.set_mode((800, 600))  # 800*600の画面
 
-    gMAN  = pygame.image.load("img/man1.png").convert_alpha()     #野　50x50 0
+    gMAN  = pygame.image.load("img/man1.png").convert_alpha()     
+    gALIEN  = pygame.image.load("img/alien.png").convert_alpha()     
+
     gNO  = pygame.image.load("img/green.png").convert_alpha()     #野　50x50 0
     gBUSH= pygame.image.load("img/green2.png").convert_alpha()    #森　50x50 1
     gUMI = pygame.image.load("img/sea.png").convert_alpha()       #海　50x50 2
@@ -15,9 +17,9 @@ def main():
 
     map=[[1,1,0,0,3,3,1,1,0,0,3,3],
          [2,2,2,1,1,1,1,1,0,3,0,0],
-         [1,3,3,1,1,2,1,1,3,3,0,3],
+         [1,3,5,1,1,2,1,1,3,3,0,3],
          [1,1,0,0,3,3,1,1,0,0,4,3],
-         [1,1,0,0,3,3,1,1,0,0,2,2],
+         [1,1,0,0,3,3,1,5,0,0,2,2],
         ]
     mxgyou=len(map)
     mxretsu=len(map[0])
@@ -43,6 +45,8 @@ def main():
                   screen.blit(gYAMA ,(px,py)) 
                 elif a1==4:
                   screen.blit(gSHIRO ,(px,py)) 
+                elif a1==5:
+                  screen.blit(gMURA ,(px,py)) 
                 px +=50
             py +=50
 
