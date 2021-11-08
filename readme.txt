@@ -2,6 +2,8 @@
   Python testxx.py
 
 各ファイルの説明
+  画像ファイルは　/img
+
   test.py     いつものやつ、ベース
 
   test1.py    map（bush）を表示
@@ -12,6 +14,8 @@
 
   test2.py     最低限のmap(２D)
   test2b.py    convert()削除
+  test2c.py    とりあえずキャラ（宇宙人）を画面に出した
+  test2d.py    キャラの背景を透明化　
 
   test3.py     とりあえずキャラを追加
   test3b.py    インデックスを使わないやり方
@@ -21,3 +25,8 @@
   test3f.py    完成
 
   test4.py    mapを追加
+  test4b.py   城を追加
+
+
+透明化サイト
+　https://www.peko-step.com/tool/alphachannel.html 
