@@ -26,7 +26,18 @@
 
   test4.py    mapを追加
   test4b.py   城を追加
+  test4c.py   ムラを追加
 
+  test5.py    サブマップを追加（パラレルワールド）
+
+  test6.py    モンスター追加（動かない）クラス導入
+  test6b.py    モンスターが動くようにした（どこでも動く）
+  test6c.py    モンスターがきっちり動く（枠内、野とブッシュのみ）
+
+  test7.py    モンスター追加（動かない）クラス導入
+  test7b.py    モンスターが動くようにした（どこでも動く）
+  test7c.py    モンスターがきっちり動く（枠内、野とブッシュのみ）
+  test7d.py    モンスターがきっちり動く（枠内、野とブッシュのみ）
 
 透明化サイト
 　https://www.peko-step.com/tool/alphachannel.html 

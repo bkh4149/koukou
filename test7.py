@@ -4,13 +4,15 @@ import sys
 import random
 
 class Player():
-  def __init__(self, x, y, hp):
+  def __init__(self, x, y, hp, map):
     self.gMAN  = pygame.image.load("img/man1.png").convert_alpha()     
     self.mx = x
     self.my = y
     self.hp = hp
     self.ct = 0
-  def update(self, map):
+    self.map = map
+
+  def update(self):
     for event in pygame.event.get():  # イベントを取得
         if event.type == QUIT:        # 閉じるボタンが押されたら終了
             pygame.quit()             # Pygameの終了(ないと終われない)
@@ -27,51 +29,43 @@ class Player():
             elif event.key == K_LEFT:
                 self.mx -= 1
             #行けない場所がある場合（はみ出し、海、山） 戻す 
-            if (self.mx >= len(map[0]) or self.mx <0 or self.my <0 or self.my >= len(map)) or \
-            map[self.my][self.mx]==2 or map[self.my][self.mx]==3:#戻す
+            if (self.mx >= len(self.map[0]) or self.mx <0 or self.my <0 or self.my >= len(self.map)) or \
+            self.map[self.my][self.mx]==2 or self.map[self.my][self.mx]==3:#戻す
                 self.mx = oldx
                 self.my = oldy 
-
-    pass
   def draw(self, screen):
     #キャラ表示
     x = self.mx * 50 + 100
     y = self.my * 50 + 100
-    if map[self.my][self.mx] == 5:
+    if self.map[self.my][self.mx] == 5:
         self.mx, self.my = sub(self.mx, self.my)
-    screen.blit(self.gMAN ,(self.mx, self.my)) 
+    screen.blit(self.gMAN ,(x, y)) 
 
-
-
-    pass
 class Monster():
-  def __init__(self, x, y, hp):
+  def __init__(self, x, y, hp, map):
     self.gALIEN  = pygame.image.load("img/alien2.png").convert_alpha()     
     self.mx = x
     self.my = y
     self.hp = hp
     self.ct = 0
-  def update(self,map):
+    self.map = map
+  def update(self):
     self.ct += 1
     if self.ct % 100 !=0:
       return
     r = random.randint(1, 4)
-    mx=len(map[0])
-    my=len(map)
-    print("mx=",mx,"my=",my, "self.mx=",self.mx,"self.my=",self.my)
     if r == 1:
-      if self.mx < mx-1 and(map[self.my][self.mx+1] == 0 or map[self.my][self.mx+1] == 1):
+      if self.mx < len(self.map[0])-1 and(self.map[self.my][self.mx+1] == 0 or self.map[self.my][self.mx+1] == 1):
         self.mx += 1
     elif r == 2:
-      if self.mx >= 1    and(map[self.my][self.mx-1] == 0 or map[self.my][self.mx-1] == 1):
+      if self.mx >= 1    and(self.map[self.my][self.mx-1] == 0 or self.map[self.my][self.mx-1] == 1):
         self.mx -= 1
     elif r == 3:
-      if self.my < my-1 and(map[self.my+1][self.mx] == 0 or map[self.my+1][self.mx] == 1):
+      if self.my < len(self.map)-1 and(self.map[self.my+1][self.mx] == 0 or self.map[self.my+1][self.mx] == 1):
         self.my += 1
     elif r == 4:
-      if self.my >= 1    and(map[self.my-1][self.mx] == 0 or map[self.my-1][self.mx] == 1):
+      if self.my >= 1    and(self.map[self.my-1][self.mx] == 0 or self.map[self.my-1][self.mx] == 1):
         self.my -= 1
-
   def draw(self, screen):
     x=self.mx*50+100
     y=self.my*50+100
@@ -93,16 +87,12 @@ def main():
          [1,1,0,0,3,3,1,1,0,0,4,3],
          [1,1,0,0,3,3,1,5,0,0,2,2],
         ]
-    mxgyou=len(map)
-    mxretsu=len(map[0])
-
-    P1 = Player(0,0)
-    M1=Monster(3,4,100)
+    P1 = Player(0,0,100,map)
+    M1 = Monster(3,4,100,map)
 
     while True:
         screen.fill((255,255,255))                                    # 背景を白
         py=100        
-
         #マップ表示
         for mgyo in map:#１行分描画
             px=100
@@ -121,24 +111,15 @@ def main():
                   screen.blit(gMURA ,(px,py)) 
                 px += 50
             py += 50
-
-        #キャラ表示
-        mx = msx * 50 + 100
-        my = msy * 50 + 100
-        if map[msy][msx] == 5:
-            msx, msy = sub(msx, msy)
-            print(msx, msy)
-        screen.blit(gMAN ,(mx, my)) 
-
-        #モンスター表示
-        M1.update(map)
+        #プレイヤー
+        P1.update()
+        P1.draw(screen)
+        #モンスター
+        M1.update()
         M1.draw(screen)
 
         pygame.display.update()                                       # 画面更新
 
-        if isBreak:
-            break
-    print("end")      
 
 
 def sub(mmsx,mmsy):
@@ -228,8 +209,6 @@ def sub(mmsx,mmsy):
         if isBreak:
             break
     print("end")      
-
-
 
 if __name__ == "__main__":
     main()
