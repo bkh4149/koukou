@@ -6,24 +6,31 @@ import random
 
 class Monster():
   def __init__(self, x, y, hp):
-    self.gALIEN  = pygame.image.load("img/alien.png").convert_alpha()     
+    self.gALIEN  = pygame.image.load("img/alien2.png").convert_alpha()     
     self.mx = x
     self.my = y
     self.hp = hp
     self.ct = 0
-  def update(self):
+  def update(self,map):
     self.ct += 1
     if self.ct % 100 !=0:
       return
     r = random.randint(1, 4)
+    mx=len(map[0])
+    my=len(map)
+    print("mx=",mx,"my=",my, "self.mx=",self.mx,"self.my=",self.my)
     if r == 1:
-      self.mx += 1
+      if self.mx < mx-1 and(map[self.my][self.mx+1] == 0 or map[self.my][self.mx+1] == 1):
+        self.mx += 1
     elif r == 2:
-      self.mx -= 1
+      if self.mx >= 1    and(map[self.my][self.mx-1] == 0 or map[self.my][self.mx-1] == 1):
+        self.mx -= 1
     elif r == 3:
-      self.my += 1
+      if self.my < my-1 and(map[self.my+1][self.mx] == 0 or map[self.my+1][self.mx] == 1):
+        self.my += 1
     elif r == 4:
-      self.my -= 1
+      if self.my >= 1    and(map[self.my-1][self.mx] == 0 or map[self.my-1][self.mx] == 1):
+        self.my -= 1
 
   def draw(self, screen):
     x=self.mx*50+100
@@ -86,7 +93,7 @@ def main():
         screen.blit(gMAN ,(mx, my)) 
 
         #モンスター表示
-        M1.update()
+        M1.update(map)
         M1.draw(screen)
 
         pygame.display.update()                                       # 画面更新
