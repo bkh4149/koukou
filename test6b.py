@@ -1,16 +1,31 @@
 import pygame
 from pygame.locals import *
 import sys
+import random
 
 
 class Monster():
-  def __init__(self,x,y,hp):
+  def __init__(self, x, y, hp):
     self.gALIEN  = pygame.image.load("img/alien.png").convert_alpha()     
-    self.mx=x
-    self.my=y
-    self.hp=hp
+    self.mx = x
+    self.my = y
+    self.hp = hp
+    self.ct = 0
   def update(self):
-    pass
+    self.ct += 1
+    if self.ct % 100 !=0:
+      return
+    r = random.randint(1, 4)
+    if r == 1:
+      self.mx += 1
+    elif r == 2:
+      self.mx -= 1
+    elif r == 3:
+      self.my += 1
+    elif r == 4:
+      self.my -= 1
+
+
   def draw(self, screen):
     x=self.mx*50+100
     y=self.my*50+100
